@@ -8,8 +8,8 @@
 ###希望支持FlowDiagram的童鞋能够到Github给我们一个star^_^
 https://github.com/mengmakies/FlowDiagram
 
-<img src="http://avatar.csdn.net/A/2/1/1_mengmakies.jpg" width = "35%" height = "auto" alt="图片名称" align=center />  &nbsp;
-<img src="http://avatar.csdn.net/A/2/1/1_mengmakies.jpg" width = "35%" height = "auto" alt="图片名称" align=center />
+<img src="http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/screenshot/flow-designer.png" width = "500px" height = "auto" alt="图片名称" align=center />  &nbsp;
+<img src="http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/screenshot/flow-display.png" width = "500px" height = "auto" alt="图片名称" align=center />
 
 ##流程图数据
 ```
@@ -56,3 +56,7 @@ https://github.com/mengmakies/FlowDiagram
     myDisplay.loadFlow(areaFlow.value);// 显示流程图
     myDisplay.animateFlowPath(flowPath, isCompleted);// 动画显示流程路径
 ```
+>
+详细代码请参考目录下的html文件：
+**/gojs1.6.10/site/samples/_demo.html**
+http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/site/samples/_demo.html
