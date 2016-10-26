@@ -1,0 +1,250 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,900,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600);
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.banner {
+  background-position: top center;
+  height: 265px;
+  background-color: #FFF;
+}
+
+.banner h1 span, h2 span {
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 5px;
+}
+
+#logo {
+  background-color:  #1F4963; /* nwoods blue */
+  font-weight: 900;
+  font-size: 120%;
+  color: white;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+
+#bannertop {
+  background-image: url('../images/banner2.png');
+  background-repeat: no-repeat;
+  box-shadow: 0px 2px 5px #D3D3D3;
+  padding-top: 48px;
+}
+
+.img-thumbnail {
+  padding: 0px;
+  margin: 4px;
+  border: 2px solid #ddd;
+  border-radius: 0px;
+  width: 226px;
+  height: 180px;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+#frontpage p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.mt30 {
+  margin-top: 30px;
+}
+
+
+#footer {
+  background-color: #292c2f;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  font-family: Lato, sans-serif;
+  font-size: 13px;
+
+  padding: 25px 50px 50px 50px;
+
+  margin-left: 0px;
+  margin-right: 0px;
+
+  color:  #ffffff;
+}
+
+#footer ul {
+  list-style: none;
+  margin-top: 20px;
+}
+#footer p {
+  font-size: 13px;
+}
+
+#footer h3 {
+  background-color:  #1F4963; /* nwoods blue */
+  font-weight: 900;
+  font-size: 40px;
+  color: white;
+  padding: 6px;
+  border-radius: 6px;
+  display: inline-block;
+
+  text-align: center;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-brand {
+  height: auto;
+}
+
+@media (min-width: 992px) {
+  .navbar-nav > li > a {
+    font-size: 110%;
+  }
+}
+
+.nav > li > a {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.navbar {
+  border-radius: 0px;
+  border-width: 0px;
+}
+
+@media (min-width: 768px) {
+  .navbar-collapse {
+    padding: 0px;
+  }
+}
+
+.nav li {
+  float: left;
+  line-height: 40px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+}
+
+.nav li:hover {
+  background-color: #707070;
+}
+
+.buy {
+  background-color: #79C900;
+}
+
+.activate {
+  background-color: #00A9C9;
+}
+
+
+/* bootstrap override */
+.container-fluid {
+  max-width: 1170px;
+}
+
+.footer {
+  text-align: right;
+  font-size: 10px;
+}
+
+/* used on learn pages */
+.learn-container {
+  max-width: 940px;
+}
+
+.diagramStyling {
+  background-color: #DAE4E4;
+}
+
+p.box {
+  padding: 15px;
+}
+
+/* Sidebar */
+@media (min-width: 992px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    /*padding: 0;*/
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    /*float: none;*/
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .sidebar-nav .navbar h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  /* used in api pages */
+  #navindex {
+    max-width: 205px;
+    padding: 0px;
+  }
+
+}
+.sidebar-nav .navbar {
+  margin-bottom: 0px;
+}
+
+.classList {
+  width: 100%;
+  margin: 0;
+}
+
+
+.navbar-nav>li>a.selected { background: #707070; color: #FFF;}
+.navbar-default .navbar-nav>li>a:hover { color: #FFF;}
+
+
+/* used in api and intro pages */
+#api-nav {
+    margin-bottom: 0px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #navindex .navbar-collapse.collapse {
+    display: none !important;
+  }
+  #navindex .navbar-collapse.collapse.in {
+    display: block !important;
+  }
+  #navindex .navbar-header .collapse, #navindex .navbar-toggle {
+    display:block !important;
+  }
+  #navindex .navbar-header {
+    float:none;
+  }
+}
+
+
+/* For the samples index.html */
+@media (max-width: 768px) {
+  .couple {
+    display: inline-block;
+  }
+}
+
+.samplecontainer {
+  overflow: hidden;
+}

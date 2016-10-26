@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>基于GOJS封装的流程图设计（展示）工具类</title>
+<meta name="description" content="" />
+<!-- Copyright 1998-2016 by Northwoods Software Corporation. -->
+<meta charset="UTF-8">
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="go.js"></script>
+    <script src="js/flow-desinger.js"></script>
+    <script src="js/flow-display.js"></script>
+</head>
+<body>
+<div id="sample" style="width:80%;margin: 0 auto">
+  <div style="width:100%; white-space:nowrap;">
+    <!--  控件 -->
+    <span style="display: inline-block; vertical-align: top; padding: 5px; width:110px">
+      <div id="myPaletteDiv" style="border: solid 1px black; height: 420px"></div>
+    </span>
+
+    <!--  设计面板 -->
+    <span style="display: inline-block; vertical-align: top; padding: 5px; width:80%">
+      <div id="myFlowDesignerDiv" style="border: solid 1px black; height: 420px"></div>
+    </span>
+  </div>
+
+  <div>
+    <div>
+      <button id="btnCreate" onclick="doCreateStep()">新建步骤</button>
+      <button id="btnSave" onclick="saveDesigner()">保存设计图</button>
+    </div>
+    <textarea id="mySavedModel" style="width:100%;height:300px">
+{ "class": "go.GraphLinksModel",
+  "modelData": {"position":"-5 -5"},
+  "nodeDataArray": [
+{"key":"1", "text":"开始", "figure":"Circle", "fill":"#4fba4f", "stepType":1, "loc":"90 110"},
+{"key":"2", "text":"结束", "figure":"Circle", "fill":"#CE0620", "stepType":4, "loc":"770 110"},
+{"key":"3", "text":"填写请假信息 ",  "loc":"210 110", "remark":""},
+{"key":"4", "text":"部门经理审核 ",  "loc":"370 110", "remark":""},
+{"key":"5", "text":"人事审核  ",  "loc":"640 110", "remark":""},
+{"key":"6", "text":"副总经理审核  ",  "loc":"510 40", "remark":""},
+{"key":"7", "text":"总经理审核  ",  "loc":"500 180", "remark":""}
+ ],
+  "linkDataArray": [
+{"from":"1", "to":"3"},
+{"from":"3", "to":"4"},
+{"from":"4", "to":"5"},
+{"from":"5", "to":"2"},
+{"from":"4", "to":"6", "key":"1001", "text":"小于5天 ", "remark":"", "condition":"Days<5"},
+{"from":"6", "to":"5"},
+{"from":"4", "to":"7", "key":"1002", "text":"大于5天 ", "remark":"", "condition":"Days>5"},
+{"from":"7", "to":"5"}
+ ]}
+    </textarea>
+  </div>
+
+  <br/>
+  <div>
+    流程路径(不包括【开始】和【结束】)：<input type="text" id="txtFlowPath" placeholder="" value="3,4,6,5"  style="width: 300px;"/>
+    <button onclick="showFlowPath()">查看流程状态</button><input type="checkbox" value="已完成流程" id="chkIsCompleted" />流程已结束
+      <span style="color:red;font-size: 10px; margin-left: 20px;">3,4,6,5是步骤的id，最后一个步骤为"待处理"或"已完成"的步骤</span>
+  </div>
+  <!-- 图例 -->
+  <div style="padding:8px 5px 0 10px;">
+    <span style="display:inline-block; height:12px; width:12px; background:#4fba4f; margin-left:6px; vertical-align:middle;"></span>
+    <label style="vertical-align:middle;">已完成步骤</label>
+    <span style="display:inline-block; height:12px; width:12px; background:#ff9001; margin-left:6px; vertical-align:middle;"></span>
+    <label style="vertical-align:middle;">待处理步骤</label>
+    <span style="display:inline-block; height:12px; width:12px; background:#7e7e7f; margin-left:6px; vertical-align:middle;"></span>
+    <label style="vertical-align:middle;">未经过步骤</label>
+  </div>
+  <div style="width:100%; white-space:nowrap;">
+    <!--  显示面板 -->
+    <span style="display: inline-block; vertical-align: top; padding: 5px; width:80%">
+      <div id="myDisplayDiv" style="border: solid 1px black; height: 420px"></div>
+    </span>
+  </div>
+
+</div>
+</body>
+<script type="text/javascript">
+    var areaFlow = document.getElementById('mySavedModel');
+
+    // 流程图设计器
+    var  myDesigner= new FlowDesigner('myFlowDesignerDiv');
+    myDesigner.initToolbar('myPaletteDiv');// 初始化控件面板
+    myDesigner.displayFlow(areaFlow.value);// 在设计面板中显示流程图
+
+    // 流程图显示器
+    var myDisplay = new FlowDisplay('myDisplayDiv');
+    showFlowPath();
+    
+    function showFlowPath() {
+        var flowPath =  $.trim($('#txtFlowPath').val());
+        var isCompleted = $('#chkIsCompleted').is(':checked');
+        myDisplay.loadFlow(areaFlow.value);
+        myDisplay.animateFlowPath(flowPath, isCompleted);
+    }
+
+    /**
+     * 创建步骤
+     */
+    var doCreateStep = function () {
+        if(!myDesigner) return;
+
+        myDesigner.createStep();
+    };
+
+    /**
+     * 保存设计图中的数据
+     */
+    var saveDesigner = function(){
+//      var errMsg = myDesigner.checkData();
+//      if(errMsg){
+//          layer.msg(errMsg);
+//          return;
+//      }
+      areaFlow.value = myDesigner.getFlowData();
+    };
+
+</script>
+</html>

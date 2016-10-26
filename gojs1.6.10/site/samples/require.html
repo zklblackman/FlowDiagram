@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Minimal GoJS Sample using RequireJS</title>
+<meta name="description" content="How to 'require' the GoJS library as an anonymous Asynchronous Module Definition (AMD) module." />
+<!-- Copyright 1998-2016 by Northwoods Software Corporation. -->
+<link href="../assets/css/goSamples.css" rel="stylesheet" type="text/css"/>  <!-- only needed for the sample framework -->
+<script src="assets/require.js"></script>
+<script id="code">
+  require.config({
+    // declare that the GoJS library is actually in a different directory
+    paths: { "go": "../release/go" }
+  });
+
+  function init() {
+    require(["go"], function(go) {
+        var $ = go.GraphObject.make;
+
+        var myDiagram =
+          $(go.Diagram, "myDiagramDiv",
+            { initialContentAlignment: go.Spot.Center });
+
+        myDiagram.model = new go.GraphLinksModel([
+          { key: "Alpha" },
+          { key: "Beta" }
+        ], [
+          { from: "Alpha", to: "Beta" }
+        ]);
+
+        require(["goSamples"], function() {  // only for the GoJS Samples framework -- you don't need to call this
+            if (window.goSamples) goSamples();
+        });
+    });
+  }
+</script>
+</head>
+<body onload="init()">
+  <div id="sample">
+  <p>A truly minimal <b>GoJS</b> Sample using RequireJS</p>
+  <div id="myDiagramDiv" style="border: solid 1px black; width:400px; height:400px"></div>
+  <div id="description">
+  <p>
+  <b>GoJS</b> registers itself as an anonymous Asynchronous Module Definition (AMD) module,
+  so that you have the option of loading "go.js" asynchronously on demand by just calling <code>require</code>.
+  </p>
+  </div>
+</body>
+</html>

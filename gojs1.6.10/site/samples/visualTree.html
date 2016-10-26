@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GoJS Visual Tree</title>
+  <meta name="description" content="Show the visual elements of a simple diagram as a tree diagram -- each Node is data bound to an element of the other Diagram." />
+  <!-- Copyright 1998-2016 by Northwoods Software Corporation. -->
+  <meta charset="UTF-8">
+  <script src="go.js"></script>
+  <link href="../assets/css/goSamples.css" rel="stylesheet" type="text/css" />  <!-- you don't need to use this -->
+  <script src="goSamples.js"></script>  <!-- this is only for the GoJS Samples framework -->
+  <script id="code">
+    function init() {
+      if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
+      var $ = go.GraphObject.make;  // for conciseness in defining templates
+
+      myDiagram =
+        $(go.Diagram, "myDiagramDiv",
+          { // start everything in the middle of the viewport
+            initialContentAlignment: go.Spot.Center,
+            "undoManager.isEnabled": true
+          });
+
+      // define the "sample" Node template
+      myDiagram.nodeTemplate =
+        $(go.Node, "Auto",
+          $(go.Shape, { fill: "darkkhaki", stroke: null }),  // assume a dark background
+          $(go.TextBlock,
+            {
+                font: "bold 13px Helvetica, bold Arial, sans-serif",
+                stroke: "black",
+                margin: 3
+            },
+            // bind the text to the Diagram/Layer/Part/GraphObject converted to a string
+            new go.Binding("text", "key"))
+        );
+
+        myDiagram.linkTemplate =
+          $(go.Link,
+            $(go.Shape, { stroke: "darkkhaki", strokeWidth: 2 })
+          );
+
+      myDiagram.model = new go.GraphLinksModel([
+        { key: "Alpha" },
+        { key: "Beta" }
+      ],[
+        { from: "Alpha", to: "Beta" },
+        { from: "Beta", to: "Alpha"}
+      ]);
+
+
+      // Now we can initialize a Diagram that looks at the visual tree that constitutes the Diagram above.
+      myVisualTree =
+        $(go.Diagram, "myVisualTree",
+          {
+            initialContentAlignment: go.Spot.Left,
+            isReadOnly: true,  // do not allow users to modify or select in this view
+            allowSelect: false,
+            layout: $(go.TreeLayout, { nodeSpacing: 5 })  // automatically laid out as a tree
+          });
+
+      myVisualTree.nodeTemplate =
+        $(go.Node, "Auto",
+          $(go.Shape, { fill: "darkkhaki", stroke: null }),  // assume a dark background
+          $(go.TextBlock,
+            {
+              font: "bold 13px Helvetica, bold Arial, sans-serif",
+              stroke: "black",
+              margin: 3
+            },
+            // bind the text to the Diagram/Layer/Part/GraphObject converted to a string
+            new go.Binding("text", "", function (x) {
+                // if the node represents a link, be sure to include the "to/from" data for that link
+                if (x instanceof go.Link) {
+                  var s = "Link#" + x.data.__gohashid;
+                  s += "(" + x.data.from + " to " + x.data.to + ")";
+                  return s;
+                }
+                else return x.toString();
+            }))
+        );
+
+      myVisualTree.linkTemplate =
+        $(go.Link,
+          $(go.Shape, { stroke: "darkkhaki", strokeWidth: 2 })
+        );
+
+      drawVisualTree();
+    }
+
+    function drawVisualTree() {
+      var visualNodeDataArray = [];
+
+      // recursively walk the visual tree, collecting objects as we go
+      function traverseVisualTree(obj, parent) {
+        obj.key = visualNodeDataArray.length;
+        visualNodeDataArray.push(obj);
+        if (parent) {
+          obj.parentKey = parent.key;
+        }
+        if (obj instanceof go.Diagram) {
+          var lit = obj.layers;
+          while (lit.next()) traverseVisualTree(lit.value, obj);
+        } else if (obj instanceof go.Layer) {
+          var pit = obj.parts;
+          while (pit.next()) traverseVisualTree(pit.value, obj);
+        } else if (obj instanceof go.Panel) {
+          var eit = obj.elements;
+          while (eit.next()) traverseVisualTree(eit.value, obj);
+        }
+      }
+
+      traverseVisualTree(myDiagram, null);
+
+      myVisualTree.model =
+        go.GraphObject.make(go.TreeModel,
+          {
+            nodeParentKeyProperty: "parentKey",
+            nodeDataArray: visualNodeDataArray
+          });
+    }
+  </script>
+</head>
+<body onload="init()">
+<div id="sample">
+  <h3>GoJS Visual Tree</h3>
+  <b>myDiagram</b>, the diagram being inspected:<br />
+  <div id="myDiagramDiv" style="border: 1px solid blue; background:#1F4963; width: 300px; height: 200px"></div>
+  <br />
+  <input type="button" onclick="drawVisualTree()" value="Draw Visual Tree" />
+  <br />
+  <br />
+  <b>myVisualTree</b>, showing the Layers, Nodes and Links that are in <b>myDiagram</b> above:<br />
+  <div id="myVisualTree" style="width: 100%; height: 300px; background:#1F4963"></div>
+  <p>
+        This sample shows the actual visual tree of a running Diagram.
+        The Diagram that we inspect is named "myDiagramDiv" and initially contains two simple Nodes and one Link.
+        The Diagram below it is named "myVisualTree" and shows the visual tree of "myDiagramDiv".
+  </p>
+  <p>
+  You can also try selecting, copying, and deleting parts in <b>myDiagram</b>
+  and then click on "Draw Visual Tree" again to see how the visual tree in <b>myDiagram</b> changes.
+  </p>
+  <p>
+  The <b>traverseVisualTree</b> function is what walks the visual tree of "myDiagramDiv"
+  and constructs the corresponding Nodes and Links used in "myVisualTree".
+  The text for each Node in "myVisualTree" is data-bound to the actual Diagram/Layer/Part/GraphObject object.
+  That object is converted to a text string by using the <b>toString</b> method.
+  </p>
+  <p>See also the <a href="visualTreeGrouping.html">Visual Tree Using Groups</a> sample,
+  to show the same visual tree using nested groups. For more uses of the <a>TreeLayout</a>, see the <a href="DOMTree.html">DOM Tree</a> and <a href="classHierarchy.html">Class Hierarchy Tree</a> samples.</p>
+</div>
+</body>
+</html>
