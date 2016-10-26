@@ -12,6 +12,12 @@ https://github.com/mengmakies/FlowDiagram
 <img src="http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/screenshot/flow-designer.png" width = "850px" height = "auto" alt="图片名称" align=center />  &nbsp;
 <img src="http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/screenshot/flow-display.png" width = "850px" height = "auto" alt="图片名称" align=center />
 
+>**流程设计器**操作指南:
+>1. 在任意位置双击设计器空白处：新建步骤；
+>2. 选中步骤，单击右键：弹出右键菜单；
+>3. 鼠标滑过步骤，显示连接点，拖动连接点即可创建新的连接线；
+>4. 鼠标滑过步骤：显示tooltip。
+
 ##流程图数据
 ```
 { "class": "go.GraphLinksModel",
