@@ -7,9 +7,10 @@
 
 ###希望支持FlowDiagram的童鞋能够到Github给我们一个star^_^
 https://github.com/mengmakies/FlowDiagram
+>**在线demo** http://www.c3dn.net/gojs/samples/demo.html
 
-<img src="http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/screenshot/flow-designer.png" width = "500px" height = "auto" alt="图片名称" align=center />  &nbsp;
-<img src="http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/screenshot/flow-display.png" width = "500px" height = "auto" alt="图片名称" align=center />
+<img src="http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/screenshot/flow-designer.png" width = "850px" height = "auto" alt="图片名称" align=center />  &nbsp;
+<img src="http://git.oschina.net/markies/FlowDiagram/raw/master/gojs1.6.10/screenshot/flow-display.png" width = "850px" height = "auto" alt="图片名称" align=center />
 
 ##流程图数据
 ```
